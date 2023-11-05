@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <style>
+        /* Add your CSS styles here */
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .delete-button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>ToDo App</h1>
+    </div>
+    <div style="display: flex;">
+        <div style="flex: 1; padding: 10px;">
+            <h2>Tasks</h2>
+            <ul id="taskList" class="task-list">
+                <!-- Task items will be added here -->
+            </ul>
+        </div>
+        <div style="flex: 1; padding: 10px;">
+            <h2>Add Task</h2>
+            <form id="taskForm">
+                <input type="text" id="taskInput" placeholder="Enter a task" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for the To-Do app
+        const taskList = document.getElementById("taskList");
+        const taskForm = document.getElementById("taskForm");
+        const taskInput = document.getElementById("taskInput");
+
+        taskForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                addTask(taskText);
+                taskInput.value = "";
+            }
+        });
+
+        function addTask(taskText) {
+            const li = document.createElement("li");
+            li.classList.add("task");
+            li.innerHTML = `
+                <span>${taskText}</span>
+                <span class="delete-button">❌</span>
+            `;
+            taskList.appendChild(li);
+
+            const deleteButton = li.querySelector(".delete-button");
+            deleteButton.addEventListener("click", function () {
+                li.remove();
+            });
+        }
+    </script>
+</body>
+</html>
